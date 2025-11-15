@@ -18,6 +18,16 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run Playwright tests
+      env: 
+        # MENGAMBIL NILAI DARI GITHUB SECRETS
+        SAUCEDEMO_USERNAME_VALID: ${{ secrets.SAUCEDEMO_USERNAME_VALID }}
+        SAUCEDEMO_PASSWORD_VALID: ${{ secrets.SAUCEDEMO_PASSWORD_VALID }}
+        
+        # Kredensial Publik lainnya yang tidak sensitif
+        SAUCEDEMO_FIRST_NAME: ${{ secrets.SAUCEDEMO_FIRST_NAME }}
+        SAUCEDEMO_LAST_NAME: ${{ secrets.SAUCEDEMO_LAST_NAME }}
+        SAUCEDEMO_POSTAL_CODE: ${{ secrets.SAUCEDEMO_POSTAL_CODE }}
+
       run: npx playwright test
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
