@@ -1,6 +1,6 @@
 # 🧪 Playwright Automation Project - Sauce Demo
 
-Proyek ini berisi *suite* otomatisasi pengujian menggunakan **Playwright** dan **Pytest** dengan bahasa pemrograman Python untuk menguji fungsionalitas di aplikasi demo [Sauce Demo](https://www.saucedemo.com/).
+Proyek ini berisi *suite* otomatisasi pengujian menggunakan **Playwright Test Runner** dengan bahasa pemrograman **TypeScript** untuk menguji fungsionalitas di aplikasi demo [Sauce Demo](https://www.saucedemo.com/).
 
 ---
 
@@ -12,35 +12,21 @@ Ikuti langkah-langkah di bawah ini untuk menyiapkan lingkungan pengujian Anda.
 
 Pastikan Anda telah menginstal:
 
-1.  **Python** (Versi 3.8+)
-2.  **pip** (Package installer for Python)
+1.  **Node.js** (Versi 18+ disarankan)
+2.  **npm** (Package manager for Node.js)
+3.  **TypeScript**
 
 ### B. Instalasi Dependensi
 
-1.  **Buat Virtual Environment** (Sangat disarankan untuk mengisolasi dependensi):
+1.  **Instal Dependensi Proyek**: Perintah ini akan menginstal semua dependensi yang tercantum di `package.json`, termasuk `@playwright/test`, `dotenv`, dan `allure-playwright`.
     ```bash
-    python -m venv venv
+    npm install
     ```
 
-2.  **Aktifkan Virtual Environment**:
-    * **macOS / Linux:**
-        ```bash
-        source venv/bin/activate
-        ```
-    * **Windows (Command Prompt):**
-        ```bash
-        venv\Scripts\activate
-        ```
-
-3.  **Instal Playwright dan Pytest Plugins**:
+2.  **Instal Browser Drivers Playwright**:
+    Perintah ini akan mengunduh dan menginstal *browser driver* (Chromium, Firefox, WebKit) yang diperlukan Playwright.
     ```bash
-    pip install pytest pytest-playwright python-dotenv
-    ```
-
-4.  **Instal Browser Drivers Playwright**:
-    Perintah ini akan mengunduh dan menginstal *browser driver* (Chromium, Firefox, WebKit) yang diperlukan.
-    ```bash
-    playwright install
+    npx playwright install
     ```
 
 ---
@@ -88,16 +74,15 @@ Semua perintah dijalankan dari *root* direktori proyek Anda (`playwright-saucede
 Menjalankan semua tes tanpa tampilan *browser* (mode *headless*).
 
 ```bash
-pytest
+npx playwright test
 ```
 
-### B. Menggunakan Alias (Makefile - Disarankan)
-Kami menyediakan Makefile untuk memudahkan menjalankan perintah yang lebih kompleks, seperti membuka browser atau debugging.
+### B. Menggunakan Alias (Disarankan)
+Didefinisikan sebagai script di file `package.json` Anda. untuk memudahkan menjalankan perintah yang lebih kompleks, seperti membuka browser atau debugging.
 
-| Alias (make ...) | Perintah yang Dijalankan | Deskripsi |
-|------------------|--------------------------|-----------|
-| make test | pytest | Menjalankan semua tes secara headless. |
-| make headed | pytest ... --headed | Menjalankan semua tes dengan browser terbuka. |
-| make slowmo | pytest ... --headed --slowmo 1000 | Menjalankan tes dengan browser terbuka dan jeda 1s antar aksi (untuk visualisasi). |
-| make inspector | PLAYWRIGHT_CLI_ARGS="--debug" pytest ... --headed | Mengaktifkan Playwright Inspector. Berguna untuk debugging interaksi UI, locator, dan alur tes. |
-| make debug | pytest ... --debug | Menghasilkan log debugging internal Pytest. Berguna untuk mendiagnosis masalah pengumpulan tes atau plugin Pytest. |
+| Script (npm run ...) | Perintah yang Dijalankan | Deskripsi |
+|----------------------|--------------------------|-----------|
+| npm test | `npx playwright test` | Menjalankan semua tes secara headless. |
+| npm headed | `npx playwright test --headed` | Menjalankan semua tes dengan browser terbuka. |
+| npm inspector | `npx playwright test --debug --headed` | Mengaktifkan Playwright Inspector. Berguna untuk debugging interaksi UI, locator, dan alur tes. |
+| npm debug | `npx playwright test --debug` | Menghasilkan log debugging internal Pytest. Berguna untuk mendiagnosis masalah pengumpulan tes atau plugin Pytest. |
